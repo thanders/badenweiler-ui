@@ -1,16 +1,7 @@
 import React from "react";
 import "./HorizontalNav.css";
 
-interface HorizontalNavProps {
-  title: { title: string };
-  buttonLeft: React.ReactNode;
-  buttonRightOne: React.ReactNode;
-  buttonRightTwo: React.ReactNode;
-  buttonRightThree: React.ReactNode;
-  styles: React.CSSProperties;
-}
-
-export default function HorizontalNav(props: HorizontalNavProps) {
+export default function HorizontalNav(props) {
 
   return (
     <header id='header' style={props.styles}>

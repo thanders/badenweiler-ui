@@ -1,0 +1,1 @@
+(this.webpackChunkbadenweiler_ui=this.webpackChunkbadenweiler_ui||[]).push([[58],{58:(e,i,u)=>{"use strict";u.r(i)}}]);

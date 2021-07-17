@@ -1,30 +1,49 @@
 const path = require('path')
-
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 module.exports = {
-    entry: "./src/index.ts",
-    mode: "production",
+    entry: "./src/index.js",
+    mode: "development",
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "index.js",
         libraryTarget: "umd",
         library: "badenweiler-ui",
-        globalObject: 'this',
     },
+    plugins: [
+      new MiniCssExtractPlugin({
+        filename: "[name].css",
+        chunkFilename: "[id].css",
+      }),
+    ],
     module: {
+        
         rules: [
             {
-                test: /\.css/,
-                use: ["style-loader", "css-loader"]
-            },
+                test: /\.(js|jsx)$/,
+                exclude: /nodeModules/,
+                use: {
+                  loader: 'babel-loader'
+                }
+              },
             {
-                test: /\.tsx?$/,
-                use: ["babel-loader", "ts-loader"],
-                exclude: /node_modules/,
-            }
-        ]
+              test: /\.(css)$/,
+              use: [
+                'style-loader',
+                'css-loader',
+              ],
+            },
+          ],
+    },
+    optimization: {
+      minimizer: [
+        // For webpack@5 you can use the `...` syntax to extend existing minimizers (i.e. `terser-webpack-plugin`), uncomment the next line
+        `...`,
+        new CssMinimizerPlugin(),
+      ],
     },
     resolve: {
-        extensions: [".tsx", ".ts"]
+        extensions: ["*", ".jsx", ".js", ".css"]
     },
     externals: {
         react: "react"
